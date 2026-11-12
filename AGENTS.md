@@ -28,3 +28,10 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+
+- AI calls go through one server function (`src/lib/ai.functions.ts`) using `@lovable.dev/ai-gateway`; prompts, JSON output schemas and formatters live in client-safe `src/lib/ai-tools.ts` so each tool is defined in one place.
+- AI results are strict JSON converted to markdown-lite text (`#`, `##`, `- `, `**bold**`, `==highlight==`) so outputs stay editable as plain text and render via `RichText`.
+- No database or auth: recent activity and stats live in browser localStorage (`src/lib/activity.ts`).
+- When AI is unavailable the server function returns a typed error (`kind: "setup"` etc.); never return placeholder content.
